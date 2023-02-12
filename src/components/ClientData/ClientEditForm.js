@@ -35,7 +35,7 @@ const ClientEditForm = (props) => {
     event.preventDefault();
 
     const clientData = {
-      id: props.clientData.id,
+      id: data.id,
       firstName: firstName,
       lastName: lastName,
       age: age,
