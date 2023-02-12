@@ -1,12 +1,19 @@
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const ClientForm = (props) => {
+const ClientEditForm = (props) => {
+  const data = props.clientData;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState(0);
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    setFirstName(data.firstName);
+    setLastName(data.lastName);
+    setAge(data.age);
+    setEmail(data.email);
+  }, []);
 
   const firstNameChangeHandler = (event) => {
     setFirstName(event.target.value);
@@ -28,15 +35,14 @@ const ClientForm = (props) => {
     event.preventDefault();
 
     const clientData = {
+      id: props.clientData.id,
       firstName: firstName,
       lastName: lastName,
       age: age,
       email: email,
     };
 
-    console.log(clientData);
-
-    props.onAdd(clientData);
+    props.onEdit(clientData);
 
     setFirstName("");
     setLastName("");
@@ -54,7 +60,7 @@ const ClientForm = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Add Client
+            Edit Client
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -67,7 +73,6 @@ const ClientForm = (props) => {
                 value={firstName}
                 onChange={firstNameChangeHandler}
                 placeholder="First Name"
-                required
               />
               <label htmlFor="floatingInput">First Name</label>
             </div>
@@ -78,8 +83,6 @@ const ClientForm = (props) => {
                 id="floatingInput"
                 value={lastName}
                 onChange={lastNameChangeHandler}
-                placeholder="Last Name"
-                required
               />
               <label htmlFor="floatingInput">Last Name</label>
             </div>
@@ -90,7 +93,6 @@ const ClientForm = (props) => {
                 id="floatingInput"
                 value={age}
                 onChange={ageChangeHandler}
-                placeholder="Age"
               />
               <label htmlFor="floatingInput">Age</label>
             </div>
@@ -101,7 +103,6 @@ const ClientForm = (props) => {
                 id="floatingInput"
                 value={email}
                 onChange={emailChangeHandler}
-                placeholder="name@example.com"
               />
               <label htmlFor="floatingInput">Email address</label>
             </div>
@@ -124,4 +125,4 @@ const ClientForm = (props) => {
   );
 };
 
-export default ClientForm;
+export default ClientEditForm;

@@ -5,6 +5,10 @@ const ClientRow = (props) => {
     props.onDelete(clientInfo);
   };
 
+  const onEditHandler = () => {
+    props.onEdit(clientInfo);
+  };
+
   return (
     <>
       <tr>
@@ -15,7 +19,11 @@ const ClientRow = (props) => {
         <td>{clientInfo.age}</td>
         <td>{clientInfo.email}</td>
         <td>
-          <button type="button" className="btn btn-primary">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={onEditHandler}
+          >
             Edit
           </button>
           <button

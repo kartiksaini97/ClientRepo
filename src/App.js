@@ -15,7 +15,7 @@ function App() {
   }, [allData]);
 
   const onAddHandler = (clientData) => {
-    axios.put("http://localhost:8080/clients", clientData);
+    axios.post("http://localhost:8080/clients", clientData);
 
     setAllData((prevData) => {
       return [...prevData, clientData];
@@ -32,11 +32,23 @@ function App() {
     });
   };
 
+  const onEditHandler = (dataToEdit) => {
+    axios.put(`http://localhost:8080/clients/${dataToEdit.id}`, dataToEdit);
+
+    setAllData((prevData) => {
+      return [...prevData, dataToEdit];
+    });
+  };
+
   return (
     <>
       <Navbar />
       <AddClient onAddClient={onAddHandler} />
-      <ClientData data={allData} onClientDelete={onDeleteHandler} />
+      <ClientData
+        data={allData}
+        onClientDelete={onDeleteHandler}
+        onEdit={onEditHandler}
+      />
     </>
   );
 }
